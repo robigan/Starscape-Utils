@@ -10,9 +10,19 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
+    <script src="https://unpkg.com/darkreader@4.9.26/darkreader.js" crossorigin=""></script>
+    <script src="./app.js" type="module" defer></script>
     <style>
         body {
             margin: 0;
+        }
+
+        #mainMap {
+            background-color: black;
+        }
+
+        .UI {
+            padding: 5px;
         }
     </style>
     <title>Starscape Utils</title>
@@ -22,6 +32,11 @@
     <div id="mainDiv">
     </div>
     <div id="mainMap">
+    </div>
+    <div id="UI" style="display: none;" class="leaflet-bar UI">
+        <p>Control Panel</p>
+        <label for="Search">Search </label>
+        <input type="text" name="Search" autocapitalize="words" value=""><br>
     </div>
     <form id="myForm" onsubmit="return handleDevForm(this)" style="display: none;">
         <p>Developer System Creator</p>

@@ -7,7 +7,7 @@ export class utilClass {
         Element.appendChild(this.newPElement(`Name: ${Properties.Name}`));
         Element.appendChild(this.newPElement(`Security: ${Properties.Security}`));
         Properties.About ? Element.appendChild(this.newPElement(Properties.About)) : undefined;
-        Properties.HelpURL ? Element.appendChild(this.newHelpElement(Properties.HelpURL, "More on the Wiki")) : undefined;
+        Properties.HelpURL ? Element.appendChild(this.newHelpElement(Properties.HelpURL, "More on the unofficial Wiki")) : undefined;
         return Element;
     }
 
