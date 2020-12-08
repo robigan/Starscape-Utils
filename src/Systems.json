@@ -1,0 +1,172 @@
+[
+    {
+        "Name": "The Citadel",
+        "Security": "Core",
+        "HelpURL": "https://starscape-roblox.fandom.com/wiki/The_Citadel_(star_system)",
+        "About": "The Citadel, the buzzing hub of Starscape and the HQ of CoreSec",
+        "Location": [
+            0.499925,
+            0.49895
+        ]
+    },
+    {
+        "Name": "Bastion",
+        "Security": "Core",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0.496429,
+            0.477487
+        ]
+    },
+    {
+        "Name": "Shield",
+        "Security": "Core",
+        "HelpURL": "https://starscape-roblox.fandom.com/wiki/Shield_(planetary_system)",
+        "About": "",
+        "Location": [
+            0.504946,
+            0.52397
+        ]
+    },
+    {
+        "Name": "Aegis",
+        "Security": "Core",
+        "HelpURL": "https://starscape-roblox.fandom.com/wiki/Aegis_(planetary_system)",
+        "About": "",
+        "Location": [
+            0.521398,
+            0.51106
+        ]
+    },
+    {
+        "Name": "Guard",
+        "Security": "Core",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0.526411,
+            0.476803
+        ]
+    },
+    {
+        "Name": "Triage",
+        "Security": "Core",
+        "HelpURL": "https://starscape-roblox.fandom.com/wiki/Triage_(planetary_system)",
+        "About": "",
+        "Location": [
+            0.484211,
+            0.491796
+        ]
+    },
+    {
+        "Name": "Concord",
+        "Security": "Core",
+        "HelpURL": "https://starscape-roblox.fandom.com/wiki/Concord_(planetary_system)",
+        "About": "",
+        "Location": [
+            0.477814,
+            0.515344
+        ]
+    },
+    {
+        "Name": "Clieleot-76",
+        "Security": "Secure",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0.472533,
+            0.485228
+        ]
+    },
+    {
+        "Name": "Ozooyeox",
+        "Security": "Secure",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0.471302,
+            0.480169
+        ]
+    },
+    {
+        "Name": "Yxuka",
+        "Security": "Secure",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0.467952,
+            0.47764
+        ]
+    },
+    {
+        "Name": "Iowta",
+        "Security": "Secure",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0.465669,
+            0.485686
+        ]
+    },
+    {
+        "Name": "Hisel",
+        "Security": "Secure",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0.4595,
+            0.483221
+        ]
+    },
+    {
+        "Name": "Vesir",
+        "Security": "Secure",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0.462115,
+            0.47595
+        ]
+    },
+    {
+        "Name": "Oojyxil",
+        "Security": "Secure",
+        "About": "A system notable for being a training hotspot",
+        "HelpURL": "",
+        "Location": [
+            0.461625,
+            0.471232
+        ]
+    },
+    {
+        "Name": "Finorg",
+        "Security": "Secure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.475539,
+            0.455651
+        ]
+    },
+    {
+        "Name": "Beta Quazad",
+        "Security": "Secure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.491957,
+            0.534216
+        ]
+    },
+    {
+        "Name": "Test",
+        "Security": "Wild",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0,
+            0
+        ]
+    }
+]

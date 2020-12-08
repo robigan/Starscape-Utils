@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+    <title>Starscape Utils</title>
+</head>
+
+<body>
+    <div id="mainDiv">
+    </div>
+    <div id="mainMap">
+    </div>
+    <form id="myForm" onsubmit="return handleDevForm(this)" style="display: none;">
+        <p>Developer System Creator</p>
+        <label for="Name">System Name </label>
+        <input type="text" name="Name" autocapitalize="words" value="Undefined"><br>
+        <label for="Security">System Security </label>
+        <input type="text" name="Security" value="Secure"><br>
+        <label for="About">About </label>
+        <input type="text" name="About"><br>
+        <label for="HelpURL">Help URL </label>
+        <input type="url" name="HelpURL"><br>
+        <input type="submit">
+        <script>
+            function handleDevForm(self) {
+                const Data = {
+                    "Name": self.elements.Name.value,
+                    "Security": self.elements.Security.value,
+                    "About": self.elements.About.value,
+                    "HelpURL": self.elements.HelpURL.value,
+                    "Location": self.attributes.location.value
+                }
+                console.log(JSON.stringify(Data));
+                return false;
+            }
+        </script>
+    </form>
+</body>
+
+</html>
