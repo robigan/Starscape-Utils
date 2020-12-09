@@ -24,6 +24,10 @@
         .UI {
             padding: 5px;
         }
+        
+        .UI .Pane {
+            background-color: #181a1b;
+        }
     </style>
     <title>Starscape Utils</title>
 </head>
@@ -33,10 +37,12 @@
     </div>
     <div id="mainMap">
     </div>
-    <div id="UI" style="display: none;" class="leaflet-bar UI">
-        <p>Control Panel</p>
-        <label for="Search">Search </label>
-        <input type="text" name="Search" autocapitalize="words" value=""><br>
+    <div id="UI" style="display: none;" class="UI">
+        <div class="Search Pane UI leaflet-bar">
+            <p>Control Panel</p>
+            <label for="Search">Search </label>
+            <input type="text" name="Search" autocapitalize="words" value=""><br>
+        </div>
     </div>
     <form id="myForm" onsubmit="return handleDevForm(this)" style="display: none;">
         <p>Developer System Creator</p>

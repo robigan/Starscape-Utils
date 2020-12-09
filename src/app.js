@@ -29,50 +29,41 @@ const populateMap = async () => {
     mainMap.eachLayer((layer) => {
         layer.remove();
     });
-    {
-        const xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-        xobj.open("GET", "Systems.json", true);
-        xobj.onreadystatechange = () => {
-            if (xobj.readyState === 4 && xobj.status === 200) {
-                const Data = JSON.parse(xobj.responseText);
-                Data.forEach(async (value) => {
-                    L.circle(value.Location, {
-                        radius: 100,
-                        stroke: false,
-                        color: value.Security == "Core" ? "#00ff00" : value.Security == "Secure" ? "#00ffff" : value.Security == "Unsecure" ? "#ff0000" : "#ff00ff",
-                        fillOpacity: 1,
-                        pane: "systemsPane"
-                    }).bindPopup(Utils.newPopup(value)).addTo(mainMap);
-                    LoadedSystems.set(value.Name, value.Location);
-                });
-            }
-        };
-        xobj.send();
-    }
-    {
-        const xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-        xobj.open("GET", "Links.json", true);
-        xobj.onreadystatechange = () => {
-            if (LoadedSystems.size == 0) { alert("Data fetching anomaly detected..."); }
-            if (xobj.readyState === 4 && xobj.status === 200) {
-                const Data = JSON.parse(xobj.responseText);
-                Data.forEach(async (value) => {
-                    if (LoadedSystems.get(value[0]) && LoadedSystems.get(value[1])) {
-                        L.polyline([LoadedSystems.get(value[0]), LoadedSystems.get(value[1])], {
-                            color: "darkgray",
-                            pane: "linksPane"
-                        }).addTo(mainMap);
-                        LoadedLinks.push(value);
-                    } else {
-                        console.warn(`Unsatisfied link: ${value}`);
-                    }
-                });
-            }
-        };
-        xobj.send();
-    }
+    await fetch("./Systems.json").then((Data) => {
+        Data.json().then((Json) => {
+            Json.forEach((value) => {
+                L.circle(value.Location, {
+                    radius: 100,
+                    stroke: false,
+                    color: value.Security == "Core" ? "#00ff00" : value.Security == "Secure" ? "#00ffff" : value.Security == "Unsecure" ? "#ff0000" : "#ff00ff",
+                    fillOpacity: 1,
+                    pane: "systemsPane"
+                }).bindPopup(Utils.newPopup(value)).addTo(mainMap);
+                LoadedSystems.set(value.Name, value.Location);
+            });
+        });
+    }).catch(err => {
+        console.error(err);
+    });
+    await fetch("./Links.json").then((Data) => {
+        Data.json().then((Json) => {
+            Json.forEach((value) => {
+                if (LoadedSystems.get(value[0]) && LoadedSystems.get(value[1])) {
+                    L.polyline([LoadedSystems.get(value[0]), LoadedSystems.get(value[1])], {
+                        color: "darkgray",
+                        pane: "linksPane"
+                    }).addTo(mainMap);
+                    LoadedLinks.push(value);
+                } else {
+                    console.warn(`Unsatisfied link: ${value}`);
+                }
+            });
+        });
+    }).catch(err => {
+        console.error(err);
+    });
+
+    // Callback hell ugh, couldn't find any other way tho using async/await or couldn't come up with a way
 };
 
 // Code to run once page loads
@@ -93,12 +84,11 @@ const populateMap = async () => {
     window.localStorage.getItem("developer") === "true" ? L.imageOverlay("./StarscapeMap.png", [[0, 0], [1, 1]]).addTo(mainMap) : undefined;
 
     populateMap();
-    L.control.mapController = (opts) => {
-        return new L.Control.MapController(opts);
-    };
-    L.control.mapController({
-        position: "topleft"
-    }).addTo(mainMap);
+    (() => {
+        return new L.Control.MapController({
+            position: "topleft"
+        });
+    })().addTo(mainMap);
 })();
 
 // Log 1, I surrender. I am not smart enough to make tiles for this, and I have decided to just use image overlays. I am gonna keep shit at 1,1 coordinates
