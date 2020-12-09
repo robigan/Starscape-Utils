@@ -24,6 +24,27 @@ const onMapClick = async (e) => {
 };
 mainMap.on("click", onMapClick);
 
+const handleDark = async (changeState) => {
+    if (window.localStorage.getItem("dark") === "true" && changeState) {
+        window.localStorage.setItem("dark", false);
+    } else if (changeState) {
+        window.localStorage.setItem("dark", true);
+    }
+
+    if (window.localStorage.getItem("dark") === "true") {
+        DarkReader.enable();
+        document.getElementById("Dark").innerText = "Dark mode enabled";
+        //changeState ? window.localStorage.setItem("dark", false) : undefined;
+        //changeState ? handleDark : undefined;
+    } else {
+        DarkReader.disable();
+        document.getElementById("Dark").innerText = "Dark mode disabled";
+        //changeState ? window.localStorage.setItem("dark", true) : undefined;
+        //changeState ? handleDark() : undefined;
+    }
+};
+document.getElementById("Dark").addEventListener("click", () => handleDark(true));
+
 // Code for populating the map with systems
 const populateMap = async () => {
     mainMap.eachLayer((layer) => {
@@ -69,13 +90,13 @@ const populateMap = async () => {
 // Code to run once page loads
 (async () => {
     DarkReader.setFetchMethod(window.fetch);
+    handleDark();
     const onresize = async () => {
         const mainMap = document.getElementById("mainMap");
         mainMap.style.left = "0px";
         mainMap.style.top = "0px";
         mainMap.style.width = (document.documentElement.clientWidth) + "px";
         mainMap.style.height = (document.documentElement.clientHeight) + "px";
-        DarkReader.enable();
     };
     window.addEventListener("resize", onresize, false);
     onresize();
