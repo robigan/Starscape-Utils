@@ -300,5 +300,13 @@
     {"Name":"Drusi","Security":"Secure","About":"","HelpURL":"","Location":[0.413529, 0.484501]},
     {"Name":"Gliwa","Security":"Secure","About":"","HelpURL":"","Location":[0.424955, 0.498204]},
     {"Name":"Athebot","Security":"Secure","About":"","HelpURL":"","Location":[0.425829, 0.485206]},
-    {"Name":"Oosju","Security":"Secure","About":"","HelpURL":"","Location":[0.430418, 0.478654]}
+    {"Name":"Oosju","Security":"Secure","About":"","HelpURL":"","Location":[0.430418, 0.478654]},
+    {"Name":"Hirex","Security":"Secure","About":"","HelpURL":"","Location":[0.440414, 0.499352]},
+    {"Name":"Elpleclae","Security":"Secure","About":"","HelpURL":"","Location":[0.437528, 0.488366]},
+    {"Name":"Awkease","Security":"Secure","About":"","HelpURL":"","Location":[0.438285, 0.473104]},
+    {"Name":"Nadod-7","Security":"Secure","About":"","HelpURL":"","Location":[0.448944, 0.468375]},
+    {"Name":"Winla-var","Security":"Secure","About":"","HelpURL":"","Location":[0.462097, 0.53767]},
+    {"Name":"Peaca","Security":"Secure","About":"","HelpURL":"","Location":[0.451205, 0.538239]},
+    {"Name":"Acasoop","Security":"Secure","About":"","HelpURL":"","Location":[0.424246, 0.537201]},
+    {"Name":"Stoyd Ydase","Security":"Unsecure","About":"","HelpURL":"","Location":[0.415135, 0.537807]}
 ]
