@@ -24,33 +24,19 @@ const onMapClick = async (e) => {
 };
 mainMap.on("click", onMapClick);
 
-const handleDark = async (changeState) => {
-    if (window.localStorage.getItem("dark") === "true" && changeState) {
-        window.localStorage.setItem("dark", false);
-    } else if (changeState) {
-        window.localStorage.setItem("dark", true);
-    }
-
-    if (window.localStorage.getItem("dark") === "true") {
-        DarkReader.enable();
-        document.getElementById("Dark").innerText = "Dark mode enabled";
-        //changeState ? window.localStorage.setItem("dark", false) : undefined;
-        //changeState ? handleDark : undefined;
-    } else {
-        DarkReader.disable();
-        document.getElementById("Dark").innerText = "Dark mode disabled";
-        //changeState ? window.localStorage.setItem("dark", true) : undefined;
-        //changeState ? handleDark() : undefined;
-    }
-};
-document.getElementById("Dark").addEventListener("click", () => handleDark(true));
+document.getElementById("Dark").addEventListener("click", () => Utils.handleDark(true));
+document.getElementById("mapOverlay").addEventListener("click", () => Utils.handleMapOverlay(true));
 
 // Code for populating the map with systems
 const populateMap = async () => {
     mainMap.eachLayer((layer) => {
         layer.remove();
     });
-    await fetch("./Systems.json").then((Data) => {
+    const Systems = fetch("./Systems.json");
+    const Links = fetch("./Links.json");
+    //So that at least the fetch for Links.json is run even if the systems are still being rendered
+
+    await Systems.then((Data) => {
         Data.json().then((Json) => {
             Json.forEach((value) => {
                 L.circle(value.Location, {
@@ -66,7 +52,7 @@ const populateMap = async () => {
     }).catch(err => {
         console.error(err);
     });
-    await fetch("./Links.json").then((Data) => {
+    await Links.then((Data) => {
         Data.json().then((Json) => {
             Json.forEach((value) => {
                 if (LoadedSystems.get(value[0]) && LoadedSystems.get(value[1])) {
@@ -90,7 +76,7 @@ const populateMap = async () => {
 // Code to run once page loads
 (async () => {
     DarkReader.setFetchMethod(window.fetch);
-    handleDark();
+    Utils.handleDark();
     const onresize = async () => {
         const mainMap = document.getElementById("mainMap");
         mainMap.style.left = "0px";
@@ -102,7 +88,6 @@ const populateMap = async () => {
     onresize();
 
     mainMap.setView([0.5, 0.5], 15);
-    window.localStorage.getItem("developer") === "true" ? L.imageOverlay("./StarscapeMap.png", [[0, 0], [1, 1]]).addTo(mainMap) : undefined;
 
     populateMap();
     (() => {
@@ -110,6 +95,11 @@ const populateMap = async () => {
             position: "topleft"
         });
     })().addTo(mainMap);
+    
+    Utils.handleMapOverlay();
+    window.localStorage.getItem("developer") === "true" || window.localStorage.getItem("mapOverlay") === "true" ? L.imageOverlay("./StarscapeMap.png", [[0, 0], [1, 1]], {
+        pane: "tilePane"
+    }).addTo(mainMap) : undefined;
 })();
 
 // Log 1, I surrender. I am not smart enough to make tiles for this, and I have decided to just use image overlays. I am gonna keep shit at 1,1 coordinates

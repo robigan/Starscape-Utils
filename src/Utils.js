@@ -29,19 +29,41 @@ export class utilClass {
     }
 
     createDeveloperElement(latlng) {
-        const Data = document.getElementById("myForm");
+        const Data = document.getElementById("devFormForSystemsIDK");
         Data.setAttribute("location", latlng);
         Data.style.display = "";
         return Data;
     }
 
-    /*
-    compareLinks(a, b) {
-        return Array.isArray(a) &&
-            Array.isArray(b) &&
-            a.length === 2 &&
-            b.length === 2 &&
-            a.every((val) => b.find((val2) => val == val2));
+    async handleDark(changeState) {
+        changeState ? await this.toggleSwitch("dark") : undefined;
+    
+        if (window.localStorage.getItem("dark") === "true") {
+            DarkReader.enable();
+            document.getElementById("Dark").innerText = "Dark mode enabled";
+        } else {
+            DarkReader.disable();
+            document.getElementById("Dark").innerText = "Dark mode disabled";
+        }
     }
-    */
+
+    async handleMapOverlay(changeState) {
+        changeState ? await this.toggleSwitch("mapOverlay") : undefined;
+
+        if (window.localStorage.getItem("mapOverlay") === "true") {
+            document.getElementById("mapOverlay").innerText = `Mapoverlay on${changeState ? " (Please reload for effects to work)" : ""}`;
+        } else {
+            document.getElementById("mapOverlay").innerText = `Mapoverlay off${changeState ? " (Please reload for effects to work)" : ""}`;
+        }
+    }
+
+    async toggleSwitch(propertyName) {
+        if (window.localStorage.getItem(propertyName) === "true") {
+            window.localStorage.setItem(propertyName, false);
+        } else if (window.localStorage.getItem(propertyName) === "false") {
+            window.localStorage.setItem(propertyName, true);
+        } else if (window.localStorage.getItem(propertyName) === null) {
+            window.localStorage.setItem(propertyName, true);
+        }
+    }
 }
