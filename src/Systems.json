@@ -1,5 +1,15 @@
 [
     {
+        "Name": "Test",
+        "Security": "Wild",
+        "HelpURL": "",
+        "About": "",
+        "Location": [
+            0,
+            0
+        ]
+    },
+    {
         "Name": "The Citadel",
         "Security": "Core",
         "HelpURL": "https://starscape-roblox.fandom.com/wiki/The_Citadel_(star_system)",
@@ -220,13 +230,75 @@
         ]
     },
     {
-        "Name": "Test",
-        "Security": "Wild",
-        "HelpURL": "",
+        "Name": "Stavesmo",
+        "Security": "Unsecure",
         "About": "",
+        "HelpURL": "",
         "Location": [
-            0,
-            0
+            0.448265,
+            0.524235
         ]
-    }
+    },
+    {
+        "Name": "Ar'staum",
+        "Security": "Unsecure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.452701,
+            0.519812
+        ]
+    },
+    {
+        "Name": "Dyxuastase",
+        "Security": "Unsecure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.449695,
+            0.513729
+        ]
+    },
+    {
+        "Name": "Torums",
+        "Security": "Unsecure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.4486,
+            0.509368
+        ]
+    },
+    {
+        "Name": "Herioyca",
+        "Security": "Unsecure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.440924,
+            0.514217
+        ]
+    },
+    {
+        "Name": "Lirelfin",
+        "Security": "Unsecure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.442678,
+            0.508627
+        ]
+    },
+    {"Name":"Pilini","Security":"Unsecure","About":"","HelpURL":"","Location":[0.439953, 0.520636]},
+    {"Name":"Monret","Security":"Unsecure","About":"","HelpURL":"","Location":[0.435243, 0.523082]},
+    {"Name":"Usib","Security":"Unsecure","About":"","HelpURL":"","Location":[0.43615, 0.513654]},
+    {"Name":"Glisirloo","Security":"Unsecure","About":"","HelpURL":"","Location":[0.417123, 0.522081]},
+    {"Name":"Xineoz","Security":"Unsecure","About":"","HelpURL":"","Location":[0.412796, 0.523248]},
+    {"Name":"Cidlore","Security":"Unsecure","About":"","HelpURL":"","Location":[0.408956, 0.526215]},
+    {"Name":"Tukebet","Security":"Unsecure","About":"","HelpURL":"","Location":[0.403272, 0.496072]},
+    {"Name":"Etdroa-85","Security":"Secure","About":"","HelpURL":"","Location":[0.412252, 0.491367]},
+    {"Name":"Drusi","Security":"Secure","About":"","HelpURL":"","Location":[0.413529, 0.484501]},
+    {"Name":"Gliwa","Security":"Secure","About":"","HelpURL":"","Location":[0.424955, 0.498204]},
+    {"Name":"Athebot","Security":"Secure","About":"","HelpURL":"","Location":[0.425829, 0.485206]},
+    {"Name":"Oosju","Security":"Secure","About":"","HelpURL":"","Location":[0.430418, 0.478654]}
 ]

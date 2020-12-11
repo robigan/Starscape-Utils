@@ -11,6 +11,7 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
     <script src="https://unpkg.com/darkreader@4.9.26/darkreader.js" crossorigin=""></script>
+    <script src="app.js" defer type="module"></script>
     <style>
         body {
             margin: 0;
@@ -63,7 +64,7 @@
                     "HelpURL": self.elements.HelpURL.value,
                     "Location": self.attributes.location.value
                 }
-                console.log(JSON.stringify(Data));
+                console.log(JSON.stringify(Data).replace(`"LatLng(`, `[`).replace(`)"`, `]`));
                 return false;
             }
         </script>

@@ -31,5 +31,14 @@
     ["Joama-sto", "Gatinsir"],
     ["Syndica", "Alpha Heron"],
     ["Syndica", "Mazae"],
-    ["Syndica", "Acoor"]
+    ["Syndica", "Acoor"],
+    ["Gatinsir", "Stavesmo"],
+    ["Stavesmo", "Ar'staum"],
+    ["Ar'staum", "Dyxuastase"],
+    ["Dyxuastase", "Torums"],
+    ["Torums", "Herioyca"],
+    ["Herioyca", "Lirelfin"],
+    ["Lirelfin", "Dyxuastase"],
+    ["Dyxuastase", "Herioyca"],
+    ["Dyxuastase", "Stavesmo"]
 ]
