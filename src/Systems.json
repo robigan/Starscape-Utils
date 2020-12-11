@@ -160,6 +160,66 @@
         ]
     },
     {
+        "Name": "Joama-sto",
+        "Security": "Secure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.464832,
+            0.529361
+        ]
+    },
+    {
+        "Name": "Gatinsir",
+        "Security": "Unsecure",
+        "About": "Pirate hotspot 🤔?",
+        "HelpURL": "",
+        "Location": [
+            0.453667,
+            0.527086
+        ]
+    },
+    {
+        "Name": "Syndica",
+        "Security": "Core",
+        "About": "The HQ of Syndicate",
+        "HelpURL": "",
+        "Location": [
+            0.780483,
+            0.405909
+        ]
+    },
+    {
+        "Name": "Alpha Heron",
+        "Security": "Unsecure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.777538,
+            0.402213
+        ]
+    },
+    {
+        "Name": "Mazae",
+        "Security": "Unsecure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.784248,
+            0.403345
+        ]
+    },
+    {
+        "Name": "Acoor",
+        "Security": "Unsecure",
+        "About": "",
+        "HelpURL": "",
+        "Location": [
+            0.786319,
+            0.408624
+        ]
+    },
+    {
         "Name": "Test",
         "Security": "Wild",
         "HelpURL": "",
