@@ -12,14 +12,24 @@ const mainMap = L.map("mainMap", {
 });
 mainMap.createPane("linksPane").style.zIndex = 450;
 mainMap.createPane("systemsPane").style.zIndex = 455;
+mainMap.createPane("lBordersPane").style.zIndex = 460;
 
 // Dev stuff ;)
+const TestData = [];
+const TestFunc = (latlng) => {
+    TestData.push([latlng.lat.toString().slice(0, 7), latlng.lng.toString().slice(0, 7)]);
+    console.log(JSON.stringify(TestData));
+    return `[${latlng.lat.toString().slice(0, 7)}, ${latlng.lng.toString().slice(0, 7)}]`;
+};
 const onMapClick = async (e) => {
     if (window.localStorage.getItem("developer") === "true") {
+        document.getElementById("devPane").style.display = "";
         L.popup()
             .setLatLng(e.latlng)
-            .setContent(Utils.createDeveloperElement(e.latlng))
+            .setContent(/*Utils.createDeveloperElement(e.latlng)*/TestFunc(e.latlng))
             .openOn(mainMap);
+    } else {
+        document.getElementById("devPane").style.display = "none";
     }
 };
 mainMap.on("click", onMapClick);
@@ -32,11 +42,9 @@ const populateMap = async () => {
     mainMap.eachLayer((layer) => {
         layer.remove();
     });
-    const Systems = fetch("./Systems.json");
-    const Links = fetch("./Links.json");
     //So that at least the fetch for Links.json is run even if the systems are still being rendered
 
-    await Systems.then((Data) => {
+    await fetch("./Systems.json").then((Data) => {
         Data.json().then((Json) => {
             Json.forEach((value) => {
                 L.circle(value.Location, {
@@ -52,18 +60,30 @@ const populateMap = async () => {
     }).catch(err => {
         console.error(err);
     });
-    await Links.then((Data) => {
+    await fetch("./Links.json").then((Data) => {
         Data.json().then((Json) => {
             Json.forEach((value) => {
                 if (LoadedSystems.get(value[0]) && LoadedSystems.get(value[1])) {
                     L.polyline([LoadedSystems.get(value[0]), LoadedSystems.get(value[1])], {
                         color: "darkgray",
                         pane: "linksPane"
-                    }).addTo(mainMap);
+                    }).bindPopup(`${value[0]} - ${value[1]}`).addTo(mainMap);
                     LoadedLinks.push(value);
                 } else {
                     console.warn(`Unsatisfied link: ${value}`);
                 }
+            });
+        });
+    }).catch(err => {
+        console.error(err);
+    });
+    await fetch("./LBorders.json").then((Data) => {
+        Data.json().then((Json) => {
+            Json.forEach((value) => {
+                L.polyline(value.Locations, {
+                    color: value.Color,
+                    pane: "lBordersPane"
+                }).bindPopup(`${value.Name} border`).addTo(mainMap);
             });
         });
     }).catch(err => {
@@ -95,9 +115,9 @@ const populateMap = async () => {
             position: "topleft"
         });
     })().addTo(mainMap);
-    
+
     Utils.handleMapOverlay();
-    window.localStorage.getItem("developer") === "true" || window.localStorage.getItem("mapOverlay") === "true" ? L.imageOverlay("./StarscapeMap.png", [[0, 0], [1, 1]], {
+    window.localStorage.getItem("mapOverlay") === "true" ? L.imageOverlay("./StarscapeMap.png", [[0, 0], [1, 1]], {
         pane: "tilePane"
     }).addTo(mainMap) : undefined;
 })();

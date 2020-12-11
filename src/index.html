@@ -11,7 +11,6 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
     <script src="https://unpkg.com/darkreader@4.9.26/darkreader.js" crossorigin=""></script>
-    <script src="app.js" defer type="module"></script>
     <style>
         body {
             margin: 0;
@@ -37,11 +36,14 @@
             <label for="Search">Search </label>
             <input type="text" name="Search" autocapitalize="words" disabled placeholder="Not available atm"><br>
         </div>
-        <div class="Search Pane leaflet-bar">
+        <div class="Options Pane leaflet-bar">
             <p>Options</p>
             <button id="Dark">Darkmode on</button>
             <p style="margin-top: 0px;">Powered by DarkReader</p>
             <button id="mapOverlay">Mapoverlay off</button>
+        </div>
+        <div style="display: none;" class="Pane leaflet-bar" id="devPane">
+            <p>Dev mode on ;D</p>
         </div>
     </div>
     <form id="devFormForSystemsIDK" onsubmit="return handleDevForm(this)" style="display: none;">
@@ -69,9 +71,7 @@
             }
         </script>
     </form>
-    <div>
-        <div id="mainMap">
-        </div>
+    <div id="mainMap">
     </div>
 </body>
 
