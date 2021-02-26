@@ -1,5 +1,11 @@
 /* eslint-disable no-undef */
 export class utilClass {
+    constructor(mainMap, LoadedSystems, /*LoadedLinks*/) {
+        this.mainMap = mainMap;
+        this.LoadedSystems = LoadedSystems;
+        //this.LoadedLinks = LoadedLinks;
+    }
+
     newPopup(Properties = { Name: "Undefined", Security: "Undefined" }) {
         Properties.Name ? undefined : Properties.Name = "Undefined";
         Properties.Security ? undefined : Properties.Security = "Undefined";
@@ -28,8 +34,25 @@ export class utilClass {
         return A;
     }
 
-    createDeveloperElement(latlng) {
-        const Data = document.getElementById("devFormForSystemsIDK");
+    async populateSearchResults(SearchTerm, Map) {
+        const El = SystemsSearchResults;
+        El.innerText = "";
+        if (SearchTerm && typeof(SearchTerm) === "string" && SearchTerm !== "") {
+            El.style.display = "";
+            const RawData = Map.keys();
+            const RE = new RegExp(SearchTerm.toLowerCase());
+            for (const Name of RawData) {
+                const PEl = this.newPElement(Name);
+                PEl.addEventListener("click", () => this.mainMap.flyTo(Map.get(Name).Location));
+                RE.test(Name.toLowerCase()) ? El.appendChild(PEl) : undefined;
+            }
+        } else {
+            El.style.display = "none";
+        }
+    }
+
+    async createDeveloperElement(latlng) {
+        const Data = devFormForSystemsIDK;
         Data.setAttribute("location", latlng);
         Data.style.display = "";
         return Data;
@@ -37,13 +60,13 @@ export class utilClass {
 
     async handleDark(changeState) {
         changeState ? await this.toggleSwitch("dark") : undefined;
-    
+
         if (window.localStorage.getItem("dark") === "true") {
             DarkReader.enable();
-            document.getElementById("Dark").innerText = "Dark mode enabled";
+            Dark.innerText = "Dark mode enabled";
         } else {
             DarkReader.disable();
-            document.getElementById("Dark").innerText = "Dark mode disabled";
+            Dark.innerText = "Dark mode disabled";
         }
     }
 
@@ -51,9 +74,9 @@ export class utilClass {
         changeState ? await this.toggleSwitch("mapOverlay") : undefined;
 
         if (window.localStorage.getItem("mapOverlay") === "true") {
-            document.getElementById("mapOverlay").innerText = `Mapoverlay on${changeState ? " (Please reload for effects to work)" : ""}`;
+            mapOverlay.innerText = `Mapoverlay on${changeState ? " (Please reload for effects to work)" : ""}`;
         } else {
-            document.getElementById("mapOverlay").innerText = `Mapoverlay off${changeState ? " (Please reload for effects to work)" : ""}`;
+            mapOverlay.innerText = `Mapoverlay off${changeState ? " (Please reload for effects to work)" : ""}`;
         }
     }
 

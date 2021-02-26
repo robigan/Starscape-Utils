@@ -11,6 +11,7 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
     <script src="https://unpkg.com/darkreader@4.9.26/darkreader.js" crossorigin=""></script>
+    <script src="./app.js" type="module" defer></script>
     <style>
         body {
             margin: 0;
@@ -24,17 +25,47 @@
             background-color: white;
             padding: 5px;
             margin: 5px 0px;
+            flex-basis: 0 1 auto;
+        }
+
+        .Pane.Search {
+            order: 1;
+        }
+
+        .Search #SystemsSearchResults {
+            margin-top: 5px;
+            background-color: lightgray;
+            overflow-x: visible;
+            overflow-y: auto;
+            width: inherit;
+            padding: 5px;
+            height: auto;
+            max-height: 100px;
+        }
+
+        .Pane.Options {
+            order: 2;
+        }
+
+        .UI {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            align-content: flex-start;
         }
     </style>
     <title>Starscape Utils</title>
 </head>
 
 <body>
-    <div id="UI" style="display: none;">
+    <div id="UI" style="display: none;" class="UI">
         <div class="Search Pane leaflet-bar">
             <p>Control Panel</p>
             <label for="Search">Search </label>
-            <input type="text" name="Search" autocapitalize="words" disabled placeholder="Not available atm"><br>
+            <input id="SystemsSearch" type="text" name="Search" autocapitalize="words"><br>
+            <div id="SystemsSearchResults" class="leaflet-bar" style="display: none;">
+            </div>
         </div>
         <div class="Options Pane leaflet-bar">
             <p>Options</p>
@@ -46,31 +77,33 @@
             <p>Dev mode on ;D</p>
         </div>
     </div>
-    <form id="devFormForSystemsIDK" onsubmit="return handleDevForm(this)" style="display: none;">
-        <p>Developer System Creator</p>
-        <label for="Name">System Name </label>
-        <input type="text" name="Name" autocapitalize="words" value="Undefined"><br>
-        <label for="Security">System Security </label>
-        <input type="text" name="Security" value="Secure"><br>
-        <label for="About">About </label>
-        <input type="text" name="About"><br>
-        <label for="HelpURL">Help URL </label>
-        <input type="url" name="HelpURL"><br>
-        <input type="submit">
-        <script>
-            function handleDevForm(self) {
-                const Data = {
-                    "Name": self.elements.Name.value,
-                    "Security": self.elements.Security.value,
-                    "About": self.elements.About.value,
-                    "HelpURL": self.elements.HelpURL.value,
-                    "Location": self.attributes.location.value
+    <div>
+        <form id="devFormForSystemsIDK" onsubmit="return handleDevForm(this)" style="display: none;">
+            <p>Developer System Creator</p>
+            <label for="Name">System Name </label>
+            <input type="text" name="Name" autocapitalize="words" value="Undefined"><br>
+            <label for="Security">System Security </label>
+            <input type="text" name="Security" value="Secure"><br>
+            <label for="About">About </label>
+            <input type="text" name="About"><br>
+            <label for="HelpURL">Help URL </label>
+            <input type="url" name="HelpURL"><br>
+            <input type="submit">
+            <script>
+                function handleDevForm(self) {
+                    const Data = {
+                        "Name": self.elements.Name.value,
+                        "Security": self.elements.Security.value,
+                        "About": self.elements.About.value,
+                        "HelpURL": self.elements.HelpURL.value,
+                        "Location": self.attributes.location.value
+                    }
+                    console.log(JSON.stringify(Data).replace(`"LatLng(`, `[`).replace(`)"`, `]`));
+                    return false;
                 }
-                console.log(JSON.stringify(Data).replace(`"LatLng(`, `[`).replace(`)"`, `]`));
-                return false;
-            }
-        </script>
-    </form>
+            </script>
+        </form>
+    </div>
     <div id="mainMap">
     </div>
 </body>

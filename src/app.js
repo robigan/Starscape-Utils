@@ -1,41 +1,45 @@
 /* eslint-disable no-undef */
 import { utilClass } from "./Utils.js";
 import { controlClass } from "./Control.js";
-const Utils = new utilClass();
-new controlClass();
 const LoadedSystems = new Map();
-const LoadedLinks = [];
+//const LoadedLinks = [];
 const mainMap = L.map("mainMap", {
     maxBounds: [[0, 0], [1, 1]],
     minZoom: 10,
     maxZoom: 20
 });
+const Utils = new utilClass(mainMap, LoadedSystems, /*LoadedLinks*/);
+new controlClass();
 mainMap.createPane("linksPane").style.zIndex = 450;
 mainMap.createPane("systemsPane").style.zIndex = 455;
 mainMap.createPane("lBordersPane").style.zIndex = 460;
 
 // Dev stuff ;)
-const TestData = [];
+// eslint-disable-next-line no-unused-vars
+//const TestData = [];
+/*
 const TestFunc = (latlng) => {
     TestData.push([latlng.lat.toString().slice(0, 7), latlng.lng.toString().slice(0, 7)]);
     console.log(JSON.stringify(TestData));
     return `[${latlng.lat.toString().slice(0, 7)}, ${latlng.lng.toString().slice(0, 7)}]`;
 };
+*/
 const onMapClick = async (e) => {
     if (window.localStorage.getItem("developer") === "true") {
-        document.getElementById("devPane").style.display = "";
+        devPane.style.display = "";
         L.popup()
             .setLatLng(e.latlng)
-            .setContent(/*Utils.createDeveloperElement(e.latlng)*/TestFunc(e.latlng))
+            .setContent(await Utils.createDeveloperElement(e.latlng)/*TestFunc(e.latlng)*/)
             .openOn(mainMap);
     } else {
-        document.getElementById("devPane").style.display = "none";
+        devPane.style.display = "none";
     }
 };
 mainMap.on("click", onMapClick);
 
-document.getElementById("Dark").addEventListener("click", () => Utils.handleDark(true));
-document.getElementById("mapOverlay").addEventListener("click", () => Utils.handleMapOverlay(true));
+Dark.addEventListener("click", () => Utils.handleDark(true));
+mapOverlay.addEventListener("click", () => Utils.handleMapOverlay(true));
+SystemsSearch.addEventListener("input", (event) => Utils.populateSearchResults(event.target.value, LoadedSystems));
 
 // Code for populating the map with systems
 const populateMap = async () => {
@@ -54,7 +58,10 @@ const populateMap = async () => {
                     fillOpacity: 1,
                     pane: "systemsPane"
                 }).bindPopup(Utils.newPopup(value)).addTo(mainMap);
-                LoadedSystems.set(value.Name, value.Location);
+                LoadedSystems.set(value.Name, {
+                    "Security": value.Security,
+                    "Location": value.Location
+                });
             });
         });
     }).catch(err => {
@@ -63,12 +70,23 @@ const populateMap = async () => {
     await fetch("./Links.json").then((Data) => {
         Data.json().then((Json) => {
             Json.forEach((value) => {
-                if (LoadedSystems.get(value[0]) && LoadedSystems.get(value[1])) {
-                    L.polyline([LoadedSystems.get(value[0]), LoadedSystems.get(value[1])], {
+                const Loc1 = LoadedSystems.get(value[0]).Location;
+                const Loc2 = LoadedSystems.get(value[1]).Location;
+                if (Loc1 && Loc2) {
+                    const polyline = L.polyline([Loc1, Loc2], {
                         color: "darkgray",
-                        pane: "linksPane"
+                        pane: "linksPane",
+                        weight: mainMap.getZoom() - 10
                     }).bindPopup(`${value[0]} - ${value[1]}`).addTo(mainMap);
-                    LoadedLinks.push(value);
+                    mainMap.on("zoomend", async () => {
+                        //const zoomLevel = mainMap.getZoom();
+                        polyline.setStyle({
+                            color: "darkgray",
+                            pane: "linksPane",
+                            weight: mainMap.getZoom() - 10
+                        });
+                    });
+                    //LoadedLinks.push(polyline);
                 } else {
                     console.warn(`Unsatisfied link: ${value}`);
                 }
@@ -82,7 +100,8 @@ const populateMap = async () => {
             Json.forEach((value) => {
                 L.polyline(value.Locations, {
                     color: value.Color,
-                    pane: "lBordersPane"
+                    pane: "lBordersPane",
+                    weight: 6
                 }).bindPopup(`${value.Name} border`).addTo(mainMap);
             });
         });
@@ -97,6 +116,7 @@ const populateMap = async () => {
 (async () => {
     DarkReader.setFetchMethod(window.fetch);
     Utils.handleDark();
+
     const onresize = async () => {
         const mainMap = document.getElementById("mainMap");
         mainMap.style.left = "0px";
@@ -117,6 +137,7 @@ const populateMap = async () => {
     })().addTo(mainMap);
 
     Utils.handleMapOverlay();
+    Utils.populateSearchResults("", new Map());
     window.localStorage.getItem("mapOverlay") === "true" ? L.imageOverlay("./StarscapeMap.png", [[0, 0], [1, 1]], {
         pane: "tilePane"
     }).addTo(mainMap) : undefined;
