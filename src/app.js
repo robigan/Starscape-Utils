@@ -14,31 +14,9 @@ mainMap.createPane("linksPane").style.zIndex = 450;
 mainMap.createPane("systemsPane").style.zIndex = 455;
 mainMap.createPane("lBordersPane").style.zIndex = 460;
 
-// Dev stuff ;)
-// eslint-disable-next-line no-unused-vars
-//const TestData = [];
-/*
-const TestFunc = (latlng) => {
-    TestData.push([latlng.lat.toString().slice(0, 7), latlng.lng.toString().slice(0, 7)]);
-    console.log(JSON.stringify(TestData));
-    return `[${latlng.lat.toString().slice(0, 7)}, ${latlng.lng.toString().slice(0, 7)}]`;
-};
-*/
-const onMapClick = async (e) => {
-    if (window.localStorage.getItem("developer") === "true") {
-        devPane.style.display = "";
-        L.popup()
-            .setLatLng(e.latlng)
-            .setContent(await Utils.createDeveloperElement(e.latlng)/*TestFunc(e.latlng)*/)
-            .openOn(mainMap);
-    } else {
-        devPane.style.display = "none";
-    }
-};
-mainMap.on("click", onMapClick);
-
 Dark.addEventListener("click", () => Utils.handleDark(true));
 mapOverlay.addEventListener("click", () => Utils.handleMapOverlay(true));
+devSwitch.addEventListener("click", () => Utils.toggleSwitch("devSwitch"));
 SystemsSearch.addEventListener("input", (event) => Utils.populateSearchResults(event.target.value, LoadedSystems));
 
 // Code for populating the map with systems
@@ -144,3 +122,52 @@ const populateMap = async () => {
 })();
 
 // Log 1, I surrender. I am not smart enough to make tiles for this, and I have decided to just use image overlays. I am gonna keep shit at 1,1 coordinates
+
+// Dev stuff ;)
+window.DevData = [];
+
+if (window.localStorage.getItem("devSwitch") === "true" && window.localStorage.getItem("developer") === "true") {
+    console.log("Using Systems");
+    devPane.style.display = "";
+    window.handleDevForm = (self) => {
+        const Data = {
+            "Name": self.elements.Name.value,
+            "Security": self.elements.Security.value,
+            "About": self.elements.About.value,
+            "HelpURL": self.elements.HelpURL.value,
+            "Location": self.attributes.location.value
+        };
+        window.DevData.push(JSON.parse(JSON.stringify(Data).replace("\"LatLng(", "[").replace(")\"", "]")));
+        return false;
+    };
+    mainMap.on("click", async (e) => {
+        L.popup()
+            .setLatLng(e.latlng)
+            .setContent(await Utils.createDeveloperElement(e.latlng))
+            .openOn(mainMap);
+    });
+} else if (window.localStorage.getItem("developer") === "true") {
+    console.log("Using Links");
+    devPane.style.display = "";
+    let Modifier = false;
+    let Cache = [];
+    window.onkeydown = (e) => {
+        e.shiftKey ? Modifier = !Modifier : undefined;
+        e.key == "c" ? Cache = [] : undefined;
+        console.log(Modifier);
+    };
+
+    mainMap.on("popupopen", (Popup) => {
+        if (Modifier) {
+            const Name = Popup.popup.getContent().children.item(0).innerText.slice(6); // Very Hacky method
+            Cache.push(Name);
+            console.log(Cache);
+            if (Cache.length >= 2) {
+                window.DevData.push(Cache);
+                Cache = [];
+            }
+        }
+    });
+} else {
+    devPane.style.display = "none";
+}

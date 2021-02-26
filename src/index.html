@@ -75,6 +75,7 @@
         </div>
         <div style="display: none;" class="Pane leaflet-bar" id="devPane">
             <p>Dev mode on ;D</p>
+            <button id="devSwitch">Links/Systems</button>
         </div>
     </div>
     <div>
@@ -89,19 +90,6 @@
             <label for="HelpURL">Help URL </label>
             <input type="url" name="HelpURL"><br>
             <input type="submit">
-            <script>
-                function handleDevForm(self) {
-                    const Data = {
-                        "Name": self.elements.Name.value,
-                        "Security": self.elements.Security.value,
-                        "About": self.elements.About.value,
-                        "HelpURL": self.elements.HelpURL.value,
-                        "Location": self.attributes.location.value
-                    }
-                    console.log(JSON.stringify(Data).replace(`"LatLng(`, `[`).replace(`)"`, `]`));
-                    return false;
-                }
-            </script>
         </form>
     </div>
     <div id="mainMap">

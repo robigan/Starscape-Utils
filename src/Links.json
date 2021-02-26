@@ -76,5 +76,14 @@
     ["Stoyd Ydase", "Acasoop"],
     ["Acasoop", "Peaca"],
     ["Peaca", "Winla-var"],
-    ["Winla-var", "Joama-sto"]
+    ["Winla-var", "Joama-sto"],
+    ["Awkease", "Odes"],
+    ["Odes", "Delta Irseo"],
+    ["Delta Irseo", "Fin Glipa"],
+    ["Fin Glipa", "Awromoth"],
+    ["Delta Irseo", "Awromoth"],
+    ["Stoib", "Fin Glipa"],
+    ["Stoib", "Romar"],
+    ["Romar", "Pios-othrio"],
+    ["Pios-othrio","Athos"],["Athos","Inmet Zades"],["Inmet Zades","Orpi"],["Finorg","Wraix"],["Wraix","Gluacidli"],["Gluacidli","Xinpi"],["Xinpi","Bastion"],["Bastion","Ogath-eoh"],["Ogath-eoh","Stoac"],["Stoac","Spiempoo"],["Spiempoo","Aelclosir"],["Gluacidli","Tiakle"],["Tiakle","Xinpi"],["Xinpi","Ogath-eoh"],["Stoac","Anher"],["Anher","Spiempoo"],["Anher","Alpha Asel"],["Alpha Asel","Rovusuaw-22"],["Rovusuaw-22","Anher"],["Rovusuaw-22","Edis"],["Edis","Sioro"],["Sioro","Retcloo-11"],["Retcloo-11","Velil"],["Velil","Usostith"],["Usostith","Aelclosir"],["Aelclosir","Ib'dua"],["Ib'dua","Winir"],["Winir","Ufath"],["Ufath","Ib'dua"],["Retcloo-11","Ialcma-255"],["Ialcma-255","Sioro"],["Winir","Vesis"],["Winir","Oasptaex"],["Oasptaex","Blacidem"],["Blacidem","Steahaem"],["Steahaem","Eogsearom"],["Eogsearom","Alpha Ialcix"],["Alpha Ialcix","Epsilon Umke"],["Epsilon Umke","Vanos"],["Vanos","Igogmet"],["Igogmet","Betelke"],["Betelke","Yen"],["Yen","Esporast"],["Esporast","Rigroplea-4"],["Esporast","Xeasi"],["Xeasi","Steahaem"],["Steahaem","Reno"],["Reno","As'droso"],["As'droso","Athveath"],["Athveath","Nadir'lifi"],["Nadir'lifi","As'droso"],["As'droso","Gilee"],["Gilee","Nadir'lifi"],["Gilee","Flamea Paog"],["Flamea Paog","As'droso"],["Gilee","Storomad"],["Storomad","Flamea Paog"],["Flamea Paog","Nadir'lifi"],["As'droso","Storomad"],["Storomad","Eoryded"],["Etdroa-85","Meopleere"],["Meopleere","Acasoop"]
 ]
