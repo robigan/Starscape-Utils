@@ -1,14 +1,17 @@
 /* eslint-disable no-undef */
-import { utilClass } from "./Utils.js";
-import { controlClass } from "./Control.js";
+import { utilClass, controlClass } from "./Utils.js";
+import "./style.css";
+import Systems from "./Systems.json";
+import Links from "./Links.json";
+import LBorders from "./LBorders.json";
 const LoadedSystems = new Map();
-//const LoadedLinks = [];
+const LoadedLinks = [];
 const mainMap = L.map("mainMap", {
     maxBounds: [[0, 0], [1, 1]],
     minZoom: 10,
     maxZoom: 20
 });
-const Utils = new utilClass(mainMap, LoadedSystems, /*LoadedLinks*/);
+const Utils = new utilClass(mainMap, LoadedSystems, LoadedLinks);
 new controlClass();
 mainMap.createPane("linksPane").style.zIndex = 450;
 mainMap.createPane("systemsPane").style.zIndex = 455;
@@ -24,67 +27,48 @@ const populateMap = async () => {
     mainMap.eachLayer((layer) => {
         layer.remove();
     });
-    //So that at least the fetch for Links.json is run even if the systems are still being rendered
 
-    await fetch("./Systems.json").then((Data) => {
-        Data.json().then((Json) => {
-            Json.forEach((value) => {
-                L.circle(value.Location, {
-                    radius: 100,
-                    stroke: false,
-                    color: value.Security == "Core" ? "#00ff00" : value.Security == "Secure" ? "#00ffff" : value.Security == "Unsecure" ? "#ff0000" : "#ff00ff",
-                    fillOpacity: 1,
-                    pane: "systemsPane"
-                }).bindPopup(Utils.newPopup(value)).addTo(mainMap);
-                LoadedSystems.set(value.Name, {
-                    "Security": value.Security,
-                    "Location": value.Location
+    Systems.forEach((value) => {
+        L.circle(value.Location, {
+            radius: 100,
+            stroke: false,
+            color: value.Security == "Core" ? "#00ff00" : value.Security == "Secure" ? "#00ffff" : value.Security == "Unsecure" ? "#ff0000" : "#ff00ff",
+            fillOpacity: 1,
+            pane: "systemsPane"
+        }).bindPopup(Utils.newPopup(value)).addTo(mainMap);
+        LoadedSystems.set(value.Name, {
+            "Security": value.Security,
+            "Location": value.Location
+        });
+    });
+    Links.forEach((value) => {
+        const Loc1 = LoadedSystems.get(value[0]).Location;
+        const Loc2 = LoadedSystems.get(value[1]).Location;
+        if (Loc1 && Loc2) {
+            const polyline = L.polyline([Loc1, Loc2], {
+                color: "darkgray",
+                pane: "linksPane",
+                weight: mainMap.getZoom() - 10
+            }).bindPopup(`${value[0]} - ${value[1]}`).addTo(mainMap);
+            mainMap.on("zoomend", async () => {
+                //const zoomLevel = mainMap.getZoom();
+                polyline.setStyle({
+                    color: "darkgray",
+                    pane: "linksPane",
+                    weight: mainMap.getZoom() - 10
                 });
             });
-        });
-    }).catch(err => {
-        console.error(err);
+            LoadedLinks.push(polyline);
+        } else {
+            console.warn(`Unsatisfied link: ${value}`);
+        }
     });
-    await fetch("./Links.json").then((Data) => {
-        Data.json().then((Json) => {
-            Json.forEach((value) => {
-                const Loc1 = LoadedSystems.get(value[0]).Location;
-                const Loc2 = LoadedSystems.get(value[1]).Location;
-                if (Loc1 && Loc2) {
-                    const polyline = L.polyline([Loc1, Loc2], {
-                        color: "darkgray",
-                        pane: "linksPane",
-                        weight: mainMap.getZoom() - 10
-                    }).bindPopup(`${value[0]} - ${value[1]}`).addTo(mainMap);
-                    mainMap.on("zoomend", async () => {
-                        //const zoomLevel = mainMap.getZoom();
-                        polyline.setStyle({
-                            color: "darkgray",
-                            pane: "linksPane",
-                            weight: mainMap.getZoom() - 10
-                        });
-                    });
-                    //LoadedLinks.push(polyline);
-                } else {
-                    console.warn(`Unsatisfied link: ${value}`);
-                }
-            });
-        });
-    }).catch(err => {
-        console.error(err);
-    });
-    await fetch("./LBorders.json").then((Data) => {
-        Data.json().then((Json) => {
-            Json.forEach((value) => {
-                L.polyline(value.Locations, {
-                    color: value.Color,
-                    pane: "lBordersPane",
-                    weight: 6
-                }).bindPopup(`${value.Name} border`).addTo(mainMap);
-            });
-        });
-    }).catch(err => {
-        console.error(err);
+    LBorders.forEach((value) => {
+        L.polyline(value.Locations, {
+            color: value.Color,
+            pane: "lBordersPane",
+            weight: 6
+        }).bindPopup(`${value.Name} border`).addTo(mainMap);
     });
 
     // Callback hell ugh, couldn't find any other way tho using async/await or couldn't come up with a way

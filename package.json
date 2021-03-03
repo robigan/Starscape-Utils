@@ -2,19 +2,21 @@
   "name": "starscape-utils",
   "scripts": {
     "build": "webpack && cp ./src/*.json ./dist && cp ./src/*.png ./dist",
+    "start": "webpack serve",
     "deploy": "firebase deploy --only hosting"
   },
   "author": "robigan",
   "devDependencies": {
-    "@babel/core": "^7.13.1",
-    "@babel/plugin-transform-runtime": "^7.13.7",
-    "@babel/preset-env": "^7.13.5",
+    "@babel/core": "^7.13.8",
+    "@babel/plugin-transform-runtime": "^7.13.9",
+    "@babel/preset-env": "^7.13.9",
     "@webpack-cli/init": "^1.1.3",
     "babel-loader": "^8.2.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^5.1.0",
-    "eslint": "^7.20.0",
+    "css-loader": "^5.1.1",
+    "eslint": "^7.21.0",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.2.0",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.1.1",
@@ -22,6 +24,5 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "dependencies": {},
   "description": "Utils for starscape"
 }

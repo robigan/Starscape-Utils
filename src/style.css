@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+#mainMap {
+    background-color: none;
+}
+
+.Pane {
+    background-color: white;
+    padding: 5px;
+    margin: 5px 0px;
+    flex-basis: 0 1 auto;
+}
+
+.Pane.Search {
+    order: 1;
+}
+
+.Search #SystemsSearchResults {
+    margin-top: 5px;
+    background-color: lightgray;
+    overflow-x: visible;
+    overflow-y: auto;
+    width: inherit;
+    padding: 5px;
+    height: auto;
+    max-height: 100px;
+}
+
+.Pane.Options {
+    order: 2;
+}
+
+.UI {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+}

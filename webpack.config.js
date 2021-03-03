@@ -32,7 +32,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: './src/app.js',
     output: {
         path: path.resolve(process.cwd(), 'dist'),
@@ -50,18 +50,21 @@ module.exports = {
                 loader: "style-loader"
             }, {
                 loader: "css-loader",
-
-                options: {
-                    sourceMap: true
-                }
             }]
-        }]
+        }, {
+            test: /\.(png|jpe?g|gif)$/i,
+            loader: "file-loader",
+            /*options: {
+                name: 'StarscapeMap.png',
+            },*/
+        }
+    ]
     },
 
     optimization: {
         minimizer: [new TerserPlugin()],
 
-        splitChunks: {
+        /*splitChunks: {
             cacheGroups: {
                 vendors: {
                     priority: -10,
@@ -73,7 +76,7 @@ module.exports = {
             minChunks: 1,
             minSize: 30000,
             name: false
-        }
+        }*/
     },
 
     plugins: [

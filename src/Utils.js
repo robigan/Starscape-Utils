@@ -90,3 +90,17 @@ export class utilClass {
         }
     }
 }
+
+export class controlClass {
+    constructor() {
+        L.Control.MapController = L.Control.extend({
+            onAdd: () => {
+                const Data = UI;
+                L.DomEvent.disableScrollPropagation(Data);
+                L.DomEvent.disableClickPropagation(Data);
+                Data.style.display = "";
+                return Data;
+            }
+        });
+    }
+}
